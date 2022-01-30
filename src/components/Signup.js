@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react'
+import { UserContext } from '../context/userContext'
 
 export default function Signup() {
+	const { modalState, toggleModals } = useContext(UserContext)
+
 	return (
 		<>
+			{ modalState.signUp && (
 			<div className="position-fixed top-0 vw-100 vh-100">
 				<div className="w-100 h-100 bg-dark bg-opacity-75">
 					<div className="position-absolute top-50 start-50 translate-middle" style={{ minWidth: "400px" }}>
@@ -56,6 +60,7 @@ export default function Signup() {
 					</div>
 				</div>
 			</div>
+			)}
 		</>
 	)
 }
