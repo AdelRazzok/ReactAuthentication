@@ -6,8 +6,8 @@ import Signup from './components/Signup'
 export default function App() {
 	return (
 		<>
-			<Navbar />
 			<Signup />
+			<Navbar />
 			<Routes>
 				<Route path="/" element={<Home />} />
 			</Routes>
