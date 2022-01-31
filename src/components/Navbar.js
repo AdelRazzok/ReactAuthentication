@@ -3,7 +3,7 @@ import { UserContext } from '../context/userContext'
 import { Link } from 'react-router-dom'
 
 export default function Navbar() {
-	const { modalState, toggleModals } = useContext(UserContext)
+	const { toggleModals } = useContext(UserContext)
 
 	return(
 		<div>
