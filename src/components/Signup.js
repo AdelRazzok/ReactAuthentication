@@ -33,8 +33,15 @@ export default function Signup() {
 			formRef.current.reset()
 			setValidation('')
 		} catch (err) {
-			
+			if(err.code === 'auth/invalid-email') {
+				setValidation('Incorrect email format')
+			}
 		}
+	}
+
+	const closeModal = () => {
+		setValidation('')
+		toggleModals('close')
 	}
 
 	return (
@@ -42,14 +49,14 @@ export default function Signup() {
 			{ modalState.signUp && (
 			<div className="position-fixed top-0 vw-100 vh-100">
 				
-				<div onClick={() => toggleModals('close')} className="w-100 h-100 bg-dark bg-opacity-75"></div>
+				<div onClick={closeModal} className="w-100 h-100 bg-dark bg-opacity-75"></div>
 
 				<div className="position-absolute top-50 start-50 translate-middle" style={{ minWidth: "400px" }}>
 					<div className="modal-dialog">
 						<div className="modal-content">
 							<div className="modal-header">
 								<h5 className="modal-title">Sign up</h5>
-								<button onClick={() => toggleModals('close')} className="btn-close"></button>
+								<button onClick={closeModal} className="btn-close"></button>
 							</div>
 							<div className="modal-body">
 								<form
