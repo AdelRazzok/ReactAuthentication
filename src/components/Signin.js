@@ -18,28 +18,16 @@ export default function Signin() {
 	const handleForm = async e => {
 		e.preventDefault()
 
-		if ((inputs.current[1].value.length || inputs.current[2].value.length) < 6) {
-			setValidation('6 characters min')
-			return
-		}
-		else if (inputs.current[1].value !== inputs.current[2].value) {
-			setValidation('Passwords do not match')
-			return
-		}
-
 		try {
-			const credential = await signUp(
+			const credential = await signIn(
 				inputs.current[0].value,
 				inputs.current[1].value
 			)
-			formRef.current.reset()
 			setValidation('')
 			toggleModals('close')
 			navigate('/private/private-home')
-		} catch (err) {
-			if(err.code === 'auth/invalid-email') {
-				setValidation('Incorrect email format')
-			}
+		} catch {
+			setValidation('Email and/or password incorrect')
 		}
 	}
 
@@ -50,7 +38,7 @@ export default function Signin() {
 
 	return (
 		<>
-			{ modalState.signUp && (
+			{ modalState.signIn && (
 			<div className="position-fixed top-0 vw-100 vh-100">
 				
 				<div onClick={closeModal} className="w-100 h-100 bg-dark bg-opacity-75"></div>
@@ -59,7 +47,7 @@ export default function Signin() {
 					<div className="modal-dialog">
 						<div className="modal-content">
 							<div className="modal-header">
-								<h5 className="modal-title">Sign up</h5>
+								<h5 className="modal-title">Sign in</h5>
 								<button onClick={closeModal} className="btn-close"></button>
 							</div>
 							<div className="modal-body">
@@ -69,27 +57,28 @@ export default function Signin() {
 									className="sign-up-form"
 								>
 									<div className="mb-3">
-										<label htmlFor="signUpEmail" className='form-label'>Email address</label>
+										<label htmlFor="signInEmail" className='form-label'>Email address</label>
 										<input
 											ref={addInputs}
 											type='email'
 											name='email' 
 											className='form-control'
 											required
-											id='signUpEmail'
+											id='signInEmail'
 										/>
 									</div>
 
 									<div className="mb-3">
-										<label htmlFor="signUpPwd" className='form-label'>Password</label>
+										<label htmlFor="signInPwd" className='form-label'>Password</label>
 										<input
 											ref={addInputs}
 											type='password'
 											name='pwd'
 											className='form-control'
 											required
-											id='signUpPwd'
+											id='signInPwd'
 										/>
+										<p className='text-danger mt-1'>{validation}</p>
 									</div>
 
 									<button className="btn btn-primary mt-2">Submit</button>
